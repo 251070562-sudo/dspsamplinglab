@@ -1,0 +1,116 @@
+.control-panel {
+  display: flex; flex-direction: column;
+  height: 100%; overflow-y: auto;
+}
+
+/* Header */
+.cp-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px; border-bottom: 1px solid var(--border2);
+  flex-shrink: 0;
+}
+.cp-header-icon { font-size: 14px; color: var(--cyan); }
+.cp-header-title {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.12em;
+  color: var(--text1); flex: 1;
+}
+.cp-badge {
+  font-size: 8px; font-weight: 800; letter-spacing: 0.14em;
+  color: var(--cyan); background: var(--cyan-dim);
+  border: 1px solid rgba(0,217,255,0.25); border-radius: 4px; padding: 2px 7px;
+}
+
+/* Params */
+.cp-params { display: flex; flex-direction: column; flex: 1; padding: 8px; gap: 6px; }
+
+.cp-param {
+  padding: 10px 12px;
+  background: rgba(0,217,255,0.03);
+  border: 1px solid rgba(0,217,255,0.08);
+  border-radius: var(--r2);
+  transition: border-color 0.2s, background 0.2s;
+}
+.cp-param:hover { background: rgba(0,217,255,0.06); border-color: rgba(0,217,255,0.18); }
+.cp-param--error { background: rgba(255,68,102,0.05); border-color: rgba(255,68,102,0.2); }
+
+.cp-param-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+
+.cp-param-icon {
+  font-family: var(--mono); font-size: 11px; font-weight: 900; color: var(--cyan);
+  background: rgba(0,217,255,0.12); border: 1px solid rgba(0,217,255,0.2);
+  border-radius: 4px; padding: 2px 6px; min-width: 24px; text-align: center;
+  box-shadow: 0 0 8px rgba(0,217,255,0.1);
+}
+
+.cp-param-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
+  color: var(--text1); text-transform: uppercase; cursor: pointer;
+}
+
+.cp-param-desc { font-size: 9px; color: var(--text3); margin: 0 0 6px 0; }
+
+.cp-param-controls { display: flex; align-items: center; gap: 8px; }
+
+.cp-slider {
+  flex: 1; height: 4px; -webkit-appearance: none; appearance: none;
+  background: linear-gradient(to right, var(--cyan) var(--pct, 30%), rgba(0,217,255,0.15) var(--pct, 30%));
+  border-radius: 2px; outline: none; cursor: pointer;
+}
+.cp-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
+  background: radial-gradient(circle, #fff 20%, var(--cyan) 60%);
+  box-shadow: 0 0 10px var(--cyan-glow), 0 2px 6px rgba(0,0,0,0.5);
+  cursor: pointer; border: 2px solid rgba(5,12,24,0.8);
+  transition: transform 0.1s;
+}
+.cp-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+.cp-slider:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+
+.cp-input {
+  width: 60px; background: var(--input-bg);
+  border: 1px solid rgba(0,217,255,0.2);
+  border-radius: var(--r2); color: var(--cyan);
+  font-family: var(--mono); font-size: 13px; font-weight: 800;
+  padding: 5px 4px; text-align: center; outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+}
+.cp-input:focus {
+  border-color: var(--cyan);
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.5), 0 0 10px var(--cyan-glow);
+}
+.cp-error { display: block; font-size: 9px; color: var(--red); margin-top: 3px; }
+
+/* Actions */
+.cp-actions {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  padding: 12px; border-top: 1px solid var(--border2); flex-shrink: 0;
+}
+
+.cp-btn {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+  border-radius: var(--r2); border: 1px solid; transition: all 0.18s;
+}
+.cp-btn:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+
+.cp-btn--play {
+  background: linear-gradient(135deg, rgba(0,217,255,0.2), rgba(0,150,200,0.1));
+  border-color: var(--cyan); color: var(--cyan);
+  box-shadow: 0 0 20px rgba(0,217,255,0.15);
+}
+.cp-btn--play:hover {
+  background: linear-gradient(135deg, rgba(0,217,255,0.3), rgba(0,150,200,0.2));
+  box-shadow: 0 0 30px rgba(0,217,255,0.3);
+  transform: translateY(-1px);
+}
+.cp-btn--paused {
+  background: linear-gradient(135deg, rgba(0,230,118,0.15), rgba(0,180,80,0.08));
+  border-color: var(--green); color: var(--green);
+}
+
+.cp-btn--reset {
+  background: rgba(255,255,255,0.03);
+  border-color: rgba(255,255,255,0.1); color: var(--text2);
+}
+.cp-btn--reset:hover { background: rgba(255,255,255,0.07); border-color: var(--text2); }

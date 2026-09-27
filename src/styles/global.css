@@ -1,0 +1,58 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #080f1b;
+  --bg2:        #0c1526;
+  --panel:      rgba(10, 20, 40, 0.85);
+  --panel2:     rgba(6, 14, 28, 0.9);
+  --border:     rgba(0, 217, 255, 0.15);
+  --border2:    rgba(0, 217, 255, 0.08);
+  --input-bg:   rgba(4, 10, 20, 0.9);
+
+  --cyan:       #00d9ff;
+  --cyan-dim:   rgba(0, 217, 255, 0.12);
+  --cyan-glow:  rgba(0, 217, 255, 0.35);
+  --cyan-glow2: rgba(0, 217, 255, 0.08);
+  --yellow:     #ffd000;
+  --green:      #00e676;
+  --red:        #ff4466;
+  --blue:       #4488ff;
+
+  --text1: #e8f4ff;
+  --text2: #7ab0d0;
+  --text3: #3a6080;
+
+  --font: 'IBM Plex Sans','Inter',system-ui,sans-serif;
+  --mono: 'IBM Plex Mono','JetBrains Mono',ui-monospace,monospace;
+  --r: 10px;
+  --r2: 6px;
+
+  /* ── Backward-compat aliases (component CSS uses these) ── */
+  --accent:      #00d9ff;
+  --accent-soft: rgba(0,217,255,0.12);
+  --accent-glow: rgba(0,217,255,0.35);
+  --safe:        #00e676;
+  --warning:     #ffc107;
+  --error:       #ff4466;
+  --border-subtle: rgba(0,217,255,0.06);
+  --panel-bg:    rgba(10,20,40,0.85);
+  --input-bg:    rgba(4,10,20,0.9);
+  --text-primary:   #e8f4ff;
+  --text-secondary: #7ab0d0;
+  --text-muted:     #3a6080;
+  --font-sans:   'IBM Plex Sans','Inter',system-ui,sans-serif;
+  --font-mono:   'IBM Plex Mono','JetBrains Mono',ui-monospace,monospace;
+  --radius:      6px;
+}
+
+html, body, #root {
+  height: 100%; overflow: hidden;
+  background: var(--bg); color: var(--text1);
+  font-family: var(--font); font-size: 13px;
+  line-height: 1.5; -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-thumb { background: rgba(0,217,255,0.2); border-radius: 2px; }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+button { font-family: var(--font); cursor: pointer; }

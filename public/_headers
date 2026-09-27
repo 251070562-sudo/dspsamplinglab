@@ -1,0 +1,28 @@
+/*
+  # HSTS — force HTTPS for 1 year, include subdomains
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # Clickjacking protection
+  X-Frame-Options: DENY
+
+  # MIME sniffing protection
+  X-Content-Type-Options: nosniff
+
+  # Referrer leakage protection
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # Disable browser features not used by this app
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), battery=(), bluetooth=(), serial=()
+
+  # XSS legacy protection (IE/old browsers)
+  X-XSS-Protection: 1; mode=block
+
+  # Remove powered-by disclosure
+  X-Powered-By:
+
+  # CSP — tailored to actual app requirements:
+  # - React (self)
+  # - Three.js WebGL (self, blob: for workers)
+  # - Google Fonts (fonts.googleapis.com, fonts.gstatic.com)
+  # - No eval, no external scripts
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; manifest-src 'self'

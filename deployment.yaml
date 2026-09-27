@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dspsamplinglab-react
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dspsamplinglab-react
+  template:
+    metadata:
+      labels:
+        app: dspsamplinglab-react
+    spec:
+      containers:
+      - name: web
+        image: nginx:alpine
+        ports:
+        - containerPort: 80

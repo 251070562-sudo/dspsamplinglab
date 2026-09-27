@@ -1,0 +1,26 @@
+.exp-summary { display: flex; flex-direction: column; height: 100%; background: var(--panel-bg); }
+.exp-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+  background: rgba(0,0,0,0.25);
+}
+.exp-badge {
+  font-size: 8px; font-weight: 800; letter-spacing: 0.14em;
+  color: var(--accent); background: var(--accent-soft);
+  border: 1px solid rgba(0,217,255,0.25); border-radius: 3px; padding: 1px 6px;
+}
+.exp-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: var(--text-muted); }
+.exp-body { flex: 1; overflow-y: auto; padding: 10px 14px; display: flex; flex-direction: column; gap: 12px; }
+.exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 12px; }
+.exp-field { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+.exp-field-label { font-size: 10px; color: var(--text-muted); font-family: var(--font-mono); }
+.exp-field-value { font-size: 11px; font-family: var(--font-mono); color: var(--text-primary); }
+.exp-status--safe     { color: var(--safe); }
+.exp-status--boundary { color: var(--warning); }
+.exp-status--alias    { color: var(--error); }
+.exp-observation {
+  background: var(--accent-soft); border: 1px solid rgba(0,217,255,0.12);
+  border-radius: var(--radius); padding: 10px 12px;
+}
+.exp-obs-title { display: block; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 6px; }
+.exp-obs-text  { font-size: 11px; line-height: 1.6; color: var(--text-secondary); margin: 0; }

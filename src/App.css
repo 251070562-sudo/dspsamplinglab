@@ -1,0 +1,132 @@
+/* ── Shell ── */
+.app-shell {
+  display: grid;
+  grid-template-rows: 52px 1fr 100px;
+  height: 100vh; background: var(--bg); overflow: hidden;
+  background-image:
+    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(0,100,180,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 0% 50%, rgba(0,217,255,0.04) 0%, transparent 60%);
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  display: flex; align-items: center; padding: 0 20px; gap: 16px;
+  background: rgba(5,12,24,0.95);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 1px 20px rgba(0,217,255,0.06);
+}
+
+.topbar-brand { display: flex; align-items: center; gap: 10px; }
+.topbar-brand-icon {
+  font-size: 20px; color: var(--cyan);
+  filter: drop-shadow(0 0 8px var(--cyan));
+}
+.topbar-brand-name {
+  font-family: var(--mono); font-size: 15px; font-weight: 900;
+  letter-spacing: 0.18em; color: var(--cyan);
+  text-shadow: 0 0 20px var(--cyan-glow);
+}
+.topbar-brand-lab {
+  font-size: 13px; font-weight: 800; letter-spacing: 0.14em;
+  color: var(--text1);
+}
+.topbar-sep { width: 1px; height: 20px; background: var(--border); }
+.topbar-sub { font-size: 10px; color: var(--text3); letter-spacing: 0.05em; }
+
+.topbar-center { flex: 1; display: flex; justify-content: center; }
+.topbar-pills {
+  display: flex; align-items: center;
+  background: rgba(0,217,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 30px; overflow: hidden;
+}
+.topbar-pill {
+  padding: 5px 18px; font-family: var(--mono); font-size: 11px; color: var(--text3);
+  border-right: 1px solid var(--border2);
+}
+.topbar-pill:last-child { border-right: none; }
+.topbar-pill strong { color: var(--cyan); font-weight: 700; font-size: 12px; }
+
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+.topbar-live {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.1em; color: var(--green);
+}
+.topbar-live-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 10px var(--green);
+  animation: pulse-live 1.4s ease-in-out infinite;
+}
+@keyframes pulse-live { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+
+.topbar-gear {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--cyan-dim);
+  color: var(--text2); font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.topbar-gear:hover { border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 12px var(--cyan-glow); }
+
+/* ── MAIN 3-COL ── */
+.app-main {
+  display: grid;
+  grid-template-columns: 230px 1fr 248px;
+  min-height: 0; overflow: hidden;
+  gap: 0; padding: 12px; gap: 12px;
+  background: var(--bg);
+}
+
+/* Panel base */
+.side-panel {
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  background: var(--panel);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0,217,255,0.06), inset 0 1px 0 rgba(255,255,255,0.04);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+
+.app-canvas-area {
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  background: #050c17;
+  box-shadow: 0 0 40px rgba(0,217,255,0.08), inset 0 1px 0 rgba(255,255,255,0.03);
+  overflow: hidden; display: flex; flex-direction: column;
+  min-width: 0; min-height: 0;
+}
+
+/* ── BOTTOM ── */
+.app-bottom {
+  padding: 0 12px 12px; min-height: 0; overflow: hidden;
+}
+
+/* ── ERROR FALLBACK ── */
+.error-fallback {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; height: 100%; gap: 10px;
+  color: var(--red); padding: 24px; text-align: center;
+}
+.error-fallback-icon { font-size: 28px; }
+.error-fallback-title { color: var(--text2); font-size: 12px; max-width: 320px; line-height: 1.6; }
+.error-fallback-detail {
+  font-family: var(--mono); font-size: 10px; color: var(--red);
+  background: rgba(255,68,102,0.06); border: 1px solid rgba(255,68,102,0.2);
+  border-radius: var(--r2); padding: 8px 12px;
+  max-width: 480px; white-space: pre-wrap; word-break: break-word; text-align: left;
+}
+.error-fallback-btn {
+  padding: 6px 18px; font-size: 11px; font-weight: 700;
+  border: 1px solid var(--red); border-radius: var(--r2);
+  background: rgba(255,68,102,0.08); color: var(--red);
+}
+
+/* ── Theme badge in topbar ── */
+.topbar-theme-badge {
+  font-size: 16px; cursor: pointer; line-height: 1;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,0.2));
+  transition: transform 0.15s;
+}
+.topbar-theme-badge:hover { transform: scale(1.2) rotate(10deg); }

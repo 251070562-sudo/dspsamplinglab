@@ -1,0 +1,157 @@
+/* ─── Shared overlay base ─────────────────────────────────────────────────── */
+.overlay-backdrop {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(4, 10, 18, 0.88);
+  backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  animation: fade-in 0.18s ease;
+}
+@keyframes fade-in { from{opacity:0} to{opacity:1} }
+
+.overlay-panel {
+  background: #0a1220;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(0,217,255,0.06);
+  display: flex; flex-direction: column;
+  width: 100%; max-width: 860px;
+  max-height: 88vh;
+  overflow: hidden;
+  animation: slide-up 0.2s ease;
+}
+@keyframes slide-up { from{transform:translateY(18px);opacity:0} to{transform:translateY(0);opacity:1} }
+
+.overlay-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  flex-shrink: 0; background: rgba(0,0,0,0.3);
+}
+.overlay-header-left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+.overlay-badge {
+  font-size: 9px; font-weight: 800; letter-spacing: 0.16em;
+  color: var(--accent); background: var(--accent-soft);
+  border: 1px solid rgba(0,217,255,0.28); border-radius: 3px; padding: 2px 7px;
+  flex-shrink: 0;
+}
+.overlay-title {
+  font-size: 13px; font-weight: 800; letter-spacing: 0.16em; color: var(--text-primary);
+}
+.overlay-subtitle {
+  font-size: 10px; color: var(--text-muted); letter-spacing: 0.05em;
+}
+.overlay-close {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--text-muted); font-size: 13px; flex-shrink: 0;
+  transition: all 0.14s;
+}
+.overlay-close:hover { background: rgba(255,68,102,0.1); border-color: var(--error); color: var(--error); }
+.overlay-close:focus-visible { outline: 2px solid var(--accent); }
+
+/* ─── Snapshot Page ───────────────────────────────────────────────────────── */
+.snappage { max-width: 880px; }
+
+.snappage-save {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 20px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+  background: rgba(0,0,0,0.2);
+}
+.snappage-input {
+  flex: 1; background: var(--input-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); color: var(--text-primary);
+  font-size: 12px; padding: 7px 10px; outline: none; font-family: var(--font-sans);
+  transition: border-color 0.14s;
+}
+.snappage-input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+
+.sp-btn {
+  padding: 7px 12px; font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
+  border-radius: var(--radius); border: 1px solid var(--border);
+  background: transparent; color: var(--text-secondary);
+  transition: all 0.13s; white-space: nowrap; cursor: pointer;
+}
+.sp-btn:focus-visible { outline: 2px solid var(--accent); }
+
+.sp-btn--save   { border-color: rgba(0,217,255,0.4); color: var(--accent); }
+.sp-btn--save:hover { background: var(--accent-soft); }
+
+.sp-btn--import { border-color: rgba(255,200,0,0.4); color: #ffc800; }
+.sp-btn--import:hover { background: rgba(255,200,0,0.1); }
+
+.sp-btn--load   { border-color: rgba(0,255,128,0.35); color: var(--safe); }
+.sp-btn--load:hover { background: rgba(0,255,128,0.08); }
+
+.sp-btn--export { border-color: var(--border); color: var(--text-muted); font-size: 10px; }
+.sp-btn--export:hover { background: rgba(255,255,255,0.05); }
+
+.sp-btn--delete { border-color: rgba(255,68,102,0.3); color: var(--error); padding: 7px 9px; }
+.sp-btn--delete:hover { background: rgba(255,68,102,0.1); }
+
+.snappage-error {
+  font-size: 11px; color: var(--error); background: rgba(255,68,102,0.07);
+  padding: 8px 20px; border-bottom: 1px solid rgba(255,68,102,0.2); flex-shrink: 0;
+}
+.snappage-success {
+  font-size: 11px; color: var(--safe); background: rgba(0,255,128,0.07);
+  padding: 8px 20px; border-bottom: 1px solid rgba(0,255,128,0.2); flex-shrink: 0;
+}
+
+.snappage-stats {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 20px; flex-shrink: 0;
+  font-size: 10px; color: var(--text-muted);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.snappage-stats-note { font-family: var(--font-mono); font-size: 9px; }
+
+.snappage-grid {
+  flex: 1; overflow-y: auto; padding: 16px 20px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px;
+}
+
+.snappage-empty {
+  grid-column: 1 / -1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px;
+  padding: 48px 20px; color: var(--text-muted); text-align: center;
+}
+.snappage-empty-icon { font-size: 36px; opacity: 0.4; }
+.snappage-empty p { font-size: 12px; line-height: 1.6; }
+
+/* Snapshot card */
+.snap-card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--border);
+  border-radius: 6px; padding: 14px;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: border-color 0.14s, background 0.14s;
+}
+.snap-card:hover { border-color: rgba(0,217,255,0.2); background: rgba(0,217,255,0.03); }
+
+.snap-card-top {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.snap-card-label {
+  font-size: 13px; font-weight: 700; color: var(--text-primary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.snap-card-id {
+  font-family: var(--font-mono); font-size: 9px; color: var(--text-muted);
+  background: rgba(255,255,255,0.05); border-radius: 3px; padding: 2px 6px; flex-shrink: 0;
+}
+
+.snap-card-params {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.snap-param {
+  font-family: var(--font-mono); font-size: 10px; color: var(--text-secondary);
+  background: rgba(0,217,255,0.05); border: 1px solid rgba(0,217,255,0.1);
+  border-radius: 3px; padding: 2px 8px;
+}
+.snap-param em { font-style: normal; color: var(--accent); font-weight: 700; margin-right: 3px; }
+
+.snap-card-bottom {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.snap-card-time { font-size: 9px; font-family: var(--font-mono); color: var(--text-muted); }
+.snap-card-actions { display: flex; gap: 5px; }

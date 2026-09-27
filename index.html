@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary metadata -->
+    <title>DSP Sampling Lab — Interactive Sampling Theorem Visualization</title>
+    <meta name="description" content="A virtual Digital Signal Processing laboratory for exploring the Nyquist-Shannon Sampling Theorem, aliasing, signal reconstruction, and spectral analysis in real time." />
+    <meta name="keywords" content="DSP, sampling theorem, Nyquist criterion, aliasing, signal reconstruction, digital signal processing, frequency domain, engineering" />
+    <meta name="author" content="DSP Sampling Lab" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Security meta headers (fallback when HTTP headers are not served) -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), battery=()" />
+
+    <!--
+      CSP adapted for this application:
+      - React + Three.js run from 'self'
+      - 'unsafe-inline' needed for Vite HMR in dev and React inline styles in prod
+      - Google Fonts for IBM Plex typography
+      - blob: for Three.js WebGL worker context
+      - No eval, no external scripts
+    -->
+    <meta http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="DSP Sampling Lab — Sampling Theorem Visualization" />
+    <meta property="og:description" content="Interactive 3D visualization of the Nyquist-Shannon Sampling Theorem. Explore aliasing, reconstruction, and spectral analysis." />
+    <meta property="og:type" content="website" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/index.jsx"></script>
+  </body>
+</html>

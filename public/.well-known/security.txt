@@ -1,0 +1,8 @@
+# DSP Sampling Lab — Security Contact
+# https://securitytxt.org/
+
+Contact: mailto:security@dspsamplinglab.local
+Expires: 2027-01-01T00:00:00Z
+Preferred-Languages: en
+Canonical: /.well-known/security.txt
+Policy: This is a client-side educational web application with no backend, no user accounts, and no persistent data storage. Vulnerability reports related to the static hosting infrastructure, security headers, or client-side JavaScript are welcome.
