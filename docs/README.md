@@ -50,3 +50,22 @@ See [submission.md](../submission.md) for full technical architecture and featur
 | `src/components/Waveform3D.jsx` | Three.js oscilloscope |
 | `tests/dsp.test.js` | 25 unit tests |
 | `public/_headers` | HTTP security headers |
+
+## Published Project Details
+- **Project Title**: dspsamplinglab
+- **Description**: N/A
+- **Version**: v15
+- **Tags**: N/A
+
+## Git Repository Metadata (Tracked)
+- **Repository URL**: https://github.com/251070562-sudo/dspsamplinglab.git
+- **Current Branch**: main
+- **Last Commit Hash**: 1d6bbfa0c17118edf9930a9a14f2cdce6e6c20f7
+- **Last Checked**: 9/27/2026, 11:01:02 PM
+
+## AI Prompt Ingest History (Tracked)
+| Date & Time | AI Agent / Tool | Prompt | Status |
+| :--- | :--- | :--- | :--- |
+| 9/23/2026, 7:50:50 PM | `BuilderAgent:generateApi` | Scaffold API controller/route 'HealthCheck' for framework React | success |
+| 9/23/2026, 7:50:50 PM | `BuilderAgent:generateComponent` | Scaffold UI component 'MainDashboard' for framework React | success |
+| 9/23/2026, 7:50:50 PM | `BuilderAgent:generateProject` | Scaffold project dspsamplinglab using framework React and database None | success |
