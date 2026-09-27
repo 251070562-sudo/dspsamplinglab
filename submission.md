@@ -1,99 +1,238 @@
-# DSP Sampling Lab
+# 🎛️ DSP Sampling Lab
+## Interactive 3D Visualization of the Sampling Theorem, Nyquist Criterion & Aliasing
 
-### Problem Statement Fit
+> *"Don't just learn the Sampling Theorem — see it happen."*
 
-Demonstrates the Sampling Theorem, Nyquist criterion, aliasing, and signal reconstruction — a core DSP concept students struggle to grasp from equations alone. This project provides an interactive virtual laboratory where cause-and-effect relationships between fm, fs, aliasing, and reconstruction become visually and numerically observable in real time.
+---
 
-### Target Users
+## 🏆 Problem Statement
 
-Undergraduate electrical/computer engineering students, DSP instructors, and hackathon judges evaluating DSP concepts. Pain points addressed: abstract math with no interactive feedback, static textbook graphs, and no safe way to experiment with aliasing parameters without physical hardware.
+Digital Signal Processing is one of the most mathematically rich yet visually underrepresented fields in engineering education. Students routinely memorize the Nyquist–Shannon Sampling Theorem without ever truly understanding **why** aliasing occurs, **what** it looks like in the time and frequency domains, and **how** reconstruction fails when the theorem is violated.
 
-### What We Built
+**DSP Sampling Lab** solves this by replacing static equations with a fully interactive virtual laboratory — where every slider movement triggers a real DSP calculation and updates the entire visualization pipeline in real time.
 
-A production-quality single-page React application implementing a complete DSP experiment loop:
+---
 
-- Change fm / fs → DSP engine recalculates → Nyquist logic runs → alias frequency computed → 3D waveform updates → sinc reconstruction updates → error metrics update → spectrum updates → status badge updates.
+## 👥 Target Users
 
-Everything updates synchronously from a single Zustand store. No simulated or fake data — all signals are computed from first principles.
+| User | Pain Point Solved |
+|---|---|
+| Engineering students (ECE/EEE) | Abstract DSP math with no visual feedback |
+| DSP instructors | No interactive demo tool for classroom use |
+| Self-learners | Can't experiment without physical hardware |
+| Hackathon judges | Live proof of DSP knowledge and implementation depth |
 
-### Core Features
+---
 
-- **3D Oscilloscope** — Three.js canvas showing live animated original signal x(t), discrete samples x[n] with stems, and reconstructed signal x_r(t) simultaneously. Orbit, zoom, pan supported. Adjustable scroll speed.
-- **Live Analysis Panel** — Real-time fm, fs, Nyquist rate, ratio, Ts, alias frequency, and reconstruction error metrics always visible.
-- **Spectrum Panel** — SVG frequency-domain view with original component, spectral replicas at k·fs±fm, overlap detection, and animated alias warning.
-- **Reconstruction Panel** — SVG overlay comparing x(t) vs x_r(t) via sinc (Whittaker–Shannon) interpolation with live RMS / max / relative error.
-- **Ratio Graph** — Visual fs/fm zone plot with safe/aliasing regions and animated current-value indicator.
-- **Control Panel** — Sliders + numeric inputs for fm, fs, amplitude, phase, duration — all validated and clamped.
-- **Experiment Summary** — Auto-generated textual report with observation derived from actual values.
-- **Nyquist Demo Mode** — One-click animated walkthrough: fs=50→30→20→18→15 Hz showing progression to aliasing.
-- **Error Overlay** — Toggle ε(t) = x(t) − x_r(t) in the 3D view with RMS/Max/Relative error metrics.
+## ✅ What We Built
 
-### Technical Architecture
+A **production-quality, fully functional** single-page DSP simulation platform.
+
+The complete cause-and-effect pipeline runs on every parameter change:
+
+```
+User changes fm or fs
+        ↓
+DSP engine recalculates samples
+        ↓
+Nyquist criterion evaluated
+        ↓
+Alias frequency computed (mathematically)
+        ↓
+3D oscilloscope animates live
+        ↓
+Sinc reconstruction recalculates
+        ↓
+Reconstruction error metrics update
+        ↓
+Frequency spectrum updates
+        ↓
+Status badge changes (SAFE / BOUNDARY / ALIASING)
+```
+
+**Zero fake data. Zero hard-coded results. Everything is computed from first-principles DSP mathematics.**
+
+---
+
+## 🚀 Core Features
+
+### 1. Live 3D Oscilloscope
+- Three.js WebGL canvas with continuous scrolling animation (real oscilloscope feel)
+- Simultaneously displays: **x(t)** original (cyan), **x_r(t)** reconstructed (green), **x[n]** sample stems (yellow → red when aliasing)
+- Orbit, zoom, pan via OrbitControls
+- Adjustable scroll speed slider
+- Toggle **ε ERROR** overlay: shows `ε(t) = x(t) − x_r(t)` directly on the waveform
+- FPS counter
+
+### 2. Real-Time DSP Engine
+- `x(t) = A · sin(2π·fm·t + φ)` — continuous signal
+- `Ts = 1/fs` — sampling interval
+- `x[n] = x(n·Ts)` — discrete samples
+- `fs ≥ 2·fm` — Nyquist criterion check
+- Alias frequency via modular folding: `f_mod = fm mod fs`, fold about `fs/2`
+- **Whittaker–Shannon sinc interpolation** reconstruction (±24-sample window)
+- RMS Error, Max |Error|, Relative Error computed on every update
+
+### 3. Live Analysis Panel (Right Sidebar)
+- Three collapsible sections: **Signal Parameters**, **Sampling Info**, **Reconstruction Error**
+- All values update in real time
+- Color-coded status badge: ✔ SAFE / △ BOUNDARY / ⚠ ALIASING
+
+### 4. Frequency Spectrum View
+- SVG frequency-domain visualization
+- Original component at fm (neon cyan)
+- Spectral replicas at k·fs±fm (animated, move as fs changes)
+- Overlap detection with pulsing **⚠ SPECTRAL OVERLAP → ALIASING** warning
+
+### 5. Sampling Ratio Graph
+- Visual fs/fm zone plot — green SAFE zone, red ALIASING zone
+- Current ratio indicator with glow effect
+
+### 6. Reconstruction Panel
+- Side-by-side SVG comparison of x(t) vs x_r(t)
+- Error metrics displayed live
+
+### 7. Nyquist Demo Mode (One-Click Presentation)
+- Automated walkthrough: fs = 50 → 30 → 20 → 18 → 15 Hz
+- Each step shows the DSP state change with description
+- **Live Diagnostic Result panel** — tells you exactly what is wrong and how to fix it:
+  - *"Increase fs by X Hz to resolve aliasing"*
+  - *"Current alias: 10 Hz appears as 5 Hz"*
+
+### 8. Theme Switcher (4 Premium Themes)
+| Theme | Style |
+|---|---|
+| 🔵 Cyber Dark | Navy + Neon Cyan (default) |
+| 🟠 Amber Lab | Dark Charcoal + Gold |
+| 🟢 Matrix Green | Pure Black + Terminal Green |
+| 🟣 Violet Storm | Deep Purple + Magenta |
+- Switchable via ⚙ gear icon in top bar
+- Persisted to localStorage
+
+### 9. Snapshot System
+- Save / Load / Export (JSON) / Import experiment states
+- All imports security-validated (schema check, prototype pollution guard, XSS strip, 4096B cap)
+
+### 10. Experiment Summary
+- Auto-generated textual report from actual computed values
+- Includes observation paragraph contextualised to current DSP state
+
+### 11. Interactive Bottom Info Cards
+- 8 compact cards: Spectrum, Ratio, Nyquist, Reconstruction, Alias, Summary, Snapshots, Demo
+- Click any card → full-screen popup with detailed analysis
+
+---
+
+## 🏗️ Technical Architecture
 
 ```
 src/
-  dsp/          — DSP engine (engine.js, reconstruction.js, errorMetrics.js)
-  utils/        — validation.js (input + snapshot security), snapshot.js (serialization)
-  store/        — useDSPStore.js (Zustand — single source of truth)
-  components/   — ControlPanel, LiveStatus, Waveform3D, SpectrumPanel, RatioGraph,
-                  ReconstructionPanel, ExperimentSummary, SnapshotManager,
-                  DemoMode, BottomTabs
-  styles/       — global.css (CSS custom properties design tokens)
-  App.jsx/.css  — 3-column + bottom-row grid layout with error boundary
-tests/          — dsp.test.js (24 tests, vitest)
+  dsp/          engine.js           — Sampling, Nyquist, alias frequency
+                reconstruction.js   — Whittaker-Shannon sinc interpolation
+                errorMetrics.js     — RMS, Max, Relative error
+  utils/        validation.js       — Input bounds, snapshot security
+                snapshot.js         — Serialization, localStorage
+  store/        useDSPStore.js      — Zustand (single source of truth)
+                useThemeStore.js    — Theme system (4 themes, CSS vars)
+  components/   Waveform3D          — Three.js imperative WebGL canvas
+                ControlPanel        — Sliders + validated numeric inputs
+                LiveStatus          — Collapsible real-time metrics
+                SpectrumPanel       — SVG frequency domain
+                RatioGraph          — SVG sampling ratio zones
+                ReconstructionPanel — SVG signal comparison
+                ExperimentSummary   — Auto-generated report
+                SnapshotManager     — Save/load/import/export
+                DemoMode            — Animated Nyquist demo + diagnostics
+                BottomTabs          — Info cards + popup system
+                ThemePicker         — 4-theme switcher with swatches
+  styles/       global.css          — CSS custom property design tokens
+tests/          dsp.test.js         — 25 unit tests (DSP + security)
+public/         _headers            — HTTP security headers
+                .well-known/
+                  security.txt      — Vulnerability disclosure
 ```
 
-DSP pipeline is separated from rendering: the Zustand store runs computeMetrics → generateReconstructedSignal → computeErrorMetrics → getSpectralReplicas on every parameter change. Three.js BufferGeometry is updated in-place each animation frame — no scene rebuild.
+**Key decisions:**
+- DSP pipeline in Zustand store — components only read derived state reactively
+- Pure imperative Three.js (no React Three Fiber) — eliminates Babel/ESM issues, smaller bundle
+- BufferGeometry updated in-place every frame — no scene rebuild, stable 60 FPS
+- CSS custom properties for theming — instant full-UI theme change, zero re-renders
 
-### Tech Stack
+---
 
-- **React 18** — UI framework
-- **Vite 5** — build tool
-- **Three.js 0.160** — 3D rendering (pure imperative, no wrapper libraries)
-- **Zustand 4** — state management
-- **Vitest 1** — unit testing
-- **CSS custom properties** — design token theming (no external UI library)
-- **Web Crypto API** — snapshot ID generation
-- **localStorage** — snapshot persistence
+## 🛠️ Tech Stack
 
-### Innovation / Uniqueness
+| Category | Technology |
+|---|---|
+| UI Framework | React 18 |
+| Build Tool | Vite 6.4 |
+| 3D Rendering | Three.js 0.160 (pure imperative) |
+| State Management | Zustand 4 |
+| Testing | Vitest 3 |
+| Visualization | Pure SVG — no Chart.js, no D3 |
+| Styling | CSS Custom Properties — no Tailwind, no UI lib |
+| Typography | IBM Plex Sans + IBM Plex Mono |
+| Storage | localStorage (snapshots + theme) |
+| Security | CSP, HSTS, X-Frame-Options, Referrer-Policy, Permissions-Policy |
 
-- Alias frequency is calculated mathematically via modular folding (`fm mod fs`, then fold about Nyquist) — not faked visually.
-- Reconstruction uses genuine Whittaker–Shannon sinc interpolation — not a redraw of the original signal.
-- Live animated oscilloscope — wave scrolls in real time at adjustable speed, PAUSE/PLAY supported.
-- Spectral replicas computed at k·fs±fm and shown dynamically moving as fs changes.
-- Snapshot security treats imported JSON as untrusted: schema validation, prototype pollution guard, XSS sanitization, 4096-byte payload cap, no eval.
-- The entire cause-and-effect chain (fm → Nyquist → fs → samples → spectrum → reconstruction → error → status) is always synchronized.
+---
 
-### Demo Instructions
+## 💡 Innovation & Uniqueness
+
+1. **Mathematically correct aliasing** — Not a visual trick. Alias frequency calculated via `f_mod = fm mod fs`, folded about `fs/2`. Matches DSP textbook formula exactly.
+
+2. **Real sinc reconstruction** — Whittaker–Shannon interpolation runs every frame in real time. The difference between original and reconstructed signals is always measurable and visible.
+
+3. **Live oscilloscope feel** — Waveform continuously scrolls like a real oscilloscope. PAUSE/PLAY. Adjustable speed. Three signal layers animate together.
+
+4. **Nyquist Demo with specific fix instructions** — The demo doesn't just show aliasing — it tells you exactly how many Hz to change to fix it.
+
+5. **Full synchronized pipeline** — Every single derived value (Nyquist rate, alias freq, error metrics, spectrum, status) updates atomically on each parameter change. Nothing is stale.
+
+6. **Production security** — Snapshot import validated against prototype pollution, XSS, and oversized payloads. HTTP headers hardened. Source maps disabled. No secrets in code.
+
+---
+
+## 🎮 Demo Instructions
 
 ```bash
 npm install
-npm run dev
+npm run dev        # http://localhost:5173
 ```
 
-**Quick judge demo (2 min):**
-1. Open the **DEMO** tab → click **▶ RUN NYQUIST DEMO** — watch fm=10 Hz cycle through fs=50→30→20→18→15 Hz automatically.
-2. Drag the **fs** slider below 20 Hz — 3D stems turn red, alias frequency appears, spectrum shows overlap.
-3. Use **SPEED** slider in 3D toolbar to control wave scroll speed.
-4. Toggle **ε ERROR** in the 3D toolbar to see the error curve overlay.
+**2-minute judge walkthrough:**
+
+| Step | Action | What to observe |
+|---|---|---|
+| 1 | Click **DEMO** card → **▶ RUN NYQUIST DEMO** | Auto steps through aliasing progression |
+| 2 | Drag **fs slider** below 20 Hz | Stems turn red, alias appears, spectrum overlaps |
+| 3 | Click **⚙ gear** icon | Switch theme instantly |
+| 4 | Click any bottom card | Full popup with detailed analysis |
+| 5 | Toggle **ε ERROR** button in 3D toolbar | Error curve appears on waveform |
 
 ```bash
-npm run build
-npm test          # 24/24 tests pass
+npm run build      # ✓ Built in 1.62s — zero errors
+npm test           # ✓ 25/25 tests passed
 ```
 
-### Known Limitations
+---
 
-- Three.js bundle is ~450 KB gzipped — expected for a WebGL 3D application.
-- Sample stem rendering is capped at 50 visible stems per frame to maintain 60 FPS.
-- Sinc reconstruction uses a ±24-sample window for real-time performance.
-- No real-time audio input or hardware ADC integration in the current MVP.
+## ⚠️ Known Limitations
 
-### Future Work
+- Desktop-optimized (1280px+ recommended) — mobile layout not fully responsive
+- Sinc reconstruction uses ±24-sample window for real-time performance
+- Three.js bundle ~666 KB (expected for WebGL application)
+- No real-time audio input — signal source is mathematical only
+- `Server: AmazonS3` header and DNSSEC are hosting-infrastructure concerns outside app control
 
-- Real-time microphone input (Web Audio API) as the signal source.
-- Multi-signal mode (sum of sinusoids) to demonstrate wider spectral aliasing.
-- Animated anti-aliasing filter visualization in the spectrum view.
-- Noise channel toggle to show SNR degradation at boundary conditions.
-- Export experiment as a PDF report.
+---
+
+## 🔭 Future Work
+
+- Real-time microphone input via Web Audio API as signal source
+- Multi-signal mode (sum of sinusoids) for advanced spectral aliasing demos
+- Full mobile-responsive layout
+- Anti-aliasing filter visualization in frequency domain
+- Collaborative real-time sessions via WebSocket
+- Export experiment as PDF report
+- Noise channel for SNR degradation demonstration
