@@ -127,6 +127,38 @@ export const THEMES = {
       '--canvas-bg':    '#060210',
     },
   },
+
+  light: {
+    id: 'light',
+    name: 'Light Mode',
+    emoji: '☀️',
+    desc: 'Soft Dark + Lighter panels',
+    vars: {
+      '--bg':           '#1a2030',
+      '--bg2':          '#222840',
+      '--panel':        'rgba(30,38,58,0.95)',
+      '--border':       'rgba(100,160,255,0.2)',
+      '--border2':      'rgba(100,160,255,0.09)',
+      '--input-bg':     'rgba(20,28,48,0.9)',
+      '--cyan':         '#60aaff',
+      '--cyan-dim':     'rgba(96,170,255,0.12)',
+      '--cyan-glow':    'rgba(96,170,255,0.3)',
+      '--yellow':       '#ffd060',
+      '--green':        '#40e080',
+      '--red':          '#ff5577',
+      '--text1':        '#ddeeff',
+      '--text2':        '#90b8d8',
+      '--text3':        '#506888',
+      '--accent':       '#60aaff',
+      '--accent-soft':  'rgba(96,170,255,0.12)',
+      '--accent-glow':  'rgba(96,170,255,0.3)',
+      '--safe':         '#40e080',
+      '--warning':      '#ffd060',
+      '--error':        '#ff5577',
+      '--canvas-bg':    '#141c2e',
+      '--border-subtle':'rgba(100,160,255,0.06)',
+    },
+  },
 };
 
 const STORAGE_KEY = 'dsp_theme';
