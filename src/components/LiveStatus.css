@@ -73,3 +73,10 @@
   color: var(--sc, var(--green));
   text-shadow: 0 0 10px var(--sc, var(--green));
 }
+
+.ls-row--tip { cursor: help; }
+.ls-tip-icon {
+  font-size: 9px; color: var(--text3); margin-left: 3px;
+  vertical-align: middle; opacity: 0.7;
+}
+.ls-row--tip:hover .ls-tip-icon { opacity: 1; color: var(--cyan); }

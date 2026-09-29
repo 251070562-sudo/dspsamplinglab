@@ -17,10 +17,10 @@ function Section({ icon, title, children, defaultOpen = true }) {
   );
 }
 
-function Row({ label, value, accent, warn, good }) {
+function Row({ label, value, accent, warn, good, tooltip }) {
   return (
-    <div className="ls-row">
-      <span className="ls-row-label">{label}</span>
+    <div className={`ls-row ${tooltip ? 'ls-row--tip' : ''}`} title={tooltip}>
+      <span className="ls-row-label">{label}{tooltip && <span className="ls-tip-icon">ⓘ</span>}</span>
       <span className={`ls-row-value ${accent ? 'ls-row--accent' : ''} ${warn ? 'ls-row--warn' : ''} ${good ? 'ls-row--good' : ''}`}>
         {value}
       </span>
@@ -60,24 +60,25 @@ export default function LiveStatus() {
       {/* Sections */}
       <div className="ls-body">
         <Section icon="⊞" title="SIGNAL PARAMETERS">
-          <Row label="Message Frequency (fm)" value={`${fm.toFixed(3)} Hz`} />
-          <Row label="Sampling Frequency (fs)" value={`${fs.toFixed(3)} Hz`} />
-          <Row label="Nyquist Rate (2fm)" value={`${nyquistRate.toFixed(3)} Hz`} />
-          <Row label="Ratio (fs/fm)" value={ratio.toFixed(3)} accent />
-          <Row label="Interval Ts" value={`${(Ts * 1000).toFixed(3)} ms`} />
+          <Row label="Message Frequency (fm)" value={`${fm.toFixed(3)} Hz`} tooltip="Frequency of the input sinusoid x(t) = A·sin(2π·fm·t + φ)" />
+          <Row label="Sampling Frequency (fs)" value={`${fs.toFixed(3)} Hz`} tooltip="Number of samples taken per second. Must be ≥ 2·fm to avoid aliasing." />
+          <Row label="Nyquist Rate (2fm)" value={`${nyquistRate.toFixed(3)} Hz`} tooltip="Minimum sampling frequency required. fs must exceed this value." />
+          <Row label="Ratio (fs/fm)" value={ratio.toFixed(3)} accent tooltip="Sampling ratio. Values ≥ 2 are safe. Values < 2 cause aliasing." />
+          <Row label="Interval Ts" value={`${(Ts * 1000).toFixed(3)} ms`} tooltip="Time between consecutive samples. Ts = 1/fs" />
         </Section>
 
         <Section icon="⊙" title="SAMPLING INFO">
-          <Row label="Samples Captured" value={samples?.length ?? 0} />
+          <Row label="Samples Captured" value={samples?.length ?? 0} tooltip="Total discrete samples x[n] = x(n·Ts) in the current window." />
           <Row
             label="Alias Frequency"
             value={aliasFreq != null ? `${aliasFreq.toFixed(3)} Hz` : 'None'}
             warn={aliasFreq != null}
+            tooltip="Apparent frequency when aliasing occurs. f_alias = fold(fm mod fs). Only appears when fs < 2·fm."
           />
         </Section>
 
         <Section icon="≋" title="RECONSTRUCTION ERROR">
-          <Row label="RMS Error"      value={error?.rmsError?.toFixed(4) ?? '—'} warn={error?.rmsError > 0.1} />
+          <Row label="RMS Error" value={error?.rmsError?.toFixed(4) ?? '—'} warn={error?.rmsError > 0.1} tooltip="Root Mean Square error between original x(t) and reconstructed x_r(t). Lower is better." />
           <Row label="Max |Error|"    value={error?.maxAbsError?.toFixed(4) ?? '—'} />
           <Row
             label="Relative Error"

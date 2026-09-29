@@ -336,7 +336,18 @@ export default function Waveform3D() {
             className={`w3d-btn ${showError ? 'w3d-btn--on' : ''}`}
             onClick={toggleError}
             aria-pressed={showError}
+            title="Toggle error overlay (E)"
           >⊕ ERROR</button>
+          <button
+            className="w3d-btn"
+            title="Fullscreen (F)"
+            onClick={() => {
+              const el = document.querySelector('.app-canvas-area');
+              if (!el) return;
+              if (!document.fullscreenElement) el.requestFullscreen().catch(()=>{});
+              else document.exitFullscreen().catch(()=>{});
+            }}
+          >⛶</button>
           <span ref={fpsRef} className="w3d-fps">— FPS</span>
         </div>
       </div>
