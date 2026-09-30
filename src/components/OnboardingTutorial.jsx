@@ -1,36 +1,41 @@
 /**
  * OnboardingTutorial — 3-step guide shown on first visit.
- * Stored in localStorage — never shown again after dismiss.
+ * Stored in localStorage so it never shows again after dismiss.
  */
 import React, { useState } from 'react';
 import './OnboardingTutorial.css';
+
+const STORAGE_KEY = 'dsp_onboarding_done';
 
 const STEPS = [
   {
     icon: '🎛️',
     title: 'Control the Signal',
-    desc: 'Use the left panel to set message frequency (fm) and sampling frequency (fs). Try dragging the sliders — the 3D waveform updates instantly.',
-    highlight: 'Try: drag the fs slider',
+    desc: 'Use the left panel to set message frequency (fm) and sampling frequency (fs). Drag the sliders — the 3D waveform updates instantly.',
+    highlight: '👉 Try: drag the fs slider',
   },
   {
     icon: '⚠️',
     title: 'Trigger Aliasing',
-    desc: 'Drag fs below 20 Hz (when fm = 10 Hz). Watch the sample stems turn red, the alias frequency appear, and the spectrum show overlap.',
-    highlight: 'Try: set fs = 15 Hz',
+    desc: 'Drag fs below 20 Hz (when fm = 10 Hz). Watch the sample stems turn red, alias frequency appear, and spectrum show overlap.',
+    highlight: '👉 Try: set fs = 15 Hz',
   },
   {
-    icon: '▶',
+    icon: '▶️',
     title: 'Run the Nyquist Demo',
-    desc: 'Click the DEMO card at the bottom and press RUN NYQUIST DEMO. It automatically steps through aliasing conditions with live diagnostics.',
-    highlight: 'Try: click DEMO card below',
+    desc: 'Click the DEMO card at the bottom and press RUN NYQUIST DEMO. It walks through aliasing automatically with live diagnostics.',
+    highlight: '👉 Try: click DEMO card below',
   },
 ];
 
-const STORAGE_KEY = 'dsp_onboarding_done';
+// Check localStorage synchronously at module level
+function shouldShow() {
+  try { return !localStorage.getItem(STORAGE_KEY); } catch { return true; }
+}
 
 export default function OnboardingTutorial({ onClose }) {
-  const [visible, setVisible] = useState(true);
-  const [step, setStep] = useState(0);
+  const [visible, setVisible] = useState(shouldShow);
+  const [step, setStep]       = useState(0);
 
   const dismiss = () => {
     try { localStorage.setItem(STORAGE_KEY, '1'); } catch {}
@@ -40,12 +45,14 @@ export default function OnboardingTutorial({ onClose }) {
 
   if (!visible) return null;
 
-  const isLast = step === STEPS.length - 1;
+  const isLast  = step === STEPS.length - 1;
   const current = STEPS[step];
 
   return (
-    <div className="ob-backdrop">
-      <div className="ob-box" role="dialog" aria-label="Getting started guide">
+    <div className="ob-backdrop" onClick={dismiss}>
+      <div className="ob-box" role="dialog" aria-label="Getting started guide"
+        onClick={e => e.stopPropagation()}>
+
         {/* Header */}
         <div className="ob-header">
           <span className="ob-badge">GETTING STARTED</span>
@@ -93,6 +100,7 @@ export default function OnboardingTutorial({ onClose }) {
             </button>
           )}
         </div>
+
       </div>
     </div>
   );

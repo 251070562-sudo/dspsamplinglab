@@ -70,7 +70,6 @@ function TopBar({ onGear, onHelp }) {
         {/* Help button */}
         <button className="topbar-help" onClick={onHelp}
           title="Show tutorial (H)" aria-label="Show tutorial">?</button>
-
         <span className="topbar-theme-badge" title={`Theme: ${currentTheme.name}`}>
           {currentTheme.emoji}
         </span>
@@ -204,17 +203,10 @@ export default function App() {
     return () => window.removeEventListener('keydown', handler);
   }, [togglePlay, reset, toggleError, toggleFullscreen, showToast]);
 
-  // Show onboarding on first visit
-  useEffect(() => {
-    try {
-      if (!localStorage.getItem('dsp_onboarding_done')) setShowOnboarding(true);
-    } catch { setShowOnboarding(true); }
-  }, []);
-
+  // Show onboarding on first visit — component checks localStorage itself
+  // handleHelp resets localStorage so tutorial shows again
   const handleHelp = () => {
-    try {
-      localStorage.removeItem('dsp_onboarding_done');
-    } catch {}
+    try { localStorage.removeItem('dsp_onboarding_done'); } catch {}
     setShowOnboarding(true);
   };
 
@@ -247,9 +239,7 @@ export default function App() {
         {/* Overlays */}
         {showTheme     && <ThemePicker onClose={() => setShowTheme(false)} />}
         {showShortcuts && <ShortcutsPanel onClose={() => setShowShortcuts(false)} />}
-        {showOnboarding && (
-          <OnboardingTutorial onClose={() => setShowOnboarding(false)} />
-        )}
+        <OnboardingTutorial key={showOnboarding} onClose={() => setShowOnboarding(false)} />
 
         {/* Keyboard shortcut toast */}
         <ShortcutToast msg={toastMsg} />
