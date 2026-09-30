@@ -1,4 +1,6 @@
-# DSP Sampling Lab
+# Project Title
+
+DSP Sampling Lab — Interactive 3D Visualization of the Sampling Theorem, Nyquist Criterion & Aliasing
 
 ## Problem Statement Fit
 
